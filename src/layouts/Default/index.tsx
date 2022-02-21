@@ -5,14 +5,18 @@ import Header from "../../components/Header"
 import Player from "../../components/Player"
 import Main from "../../components/Main"
 
-export default function Default(){
+interface Page {
+    children: React.ReactNode
+};
+
+export default function Default(props: Page){
     return (
         <S.Container>
             <Sidebar/>
 
             <Header/>
 
-            <Main/>
+            {props.children}
 
             <Player/>
             
