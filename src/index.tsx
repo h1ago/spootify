@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter} from "react-router-dom"
 import { createGlobalStyle } from 'styled-components'
 import resetCss from 'styled-reset'
+import App from './app'
 
-import Default from './layouts/Default'
-import Routes from './routes'
+
 
 const GlobalStyle = createGlobalStyle`
     ${resetCss}
@@ -17,9 +17,7 @@ ReactDOM.render(
     
     <BrowserRouter>
     
-      <Default>
-        <Routes/>
-      </Default>
+      <App/>
 
     </BrowserRouter>
     

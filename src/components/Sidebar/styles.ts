@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from "react-router-dom"
 
 export const Container = styled.div`
     grid-area: sidebar;
@@ -44,7 +43,7 @@ export const Nav = styled.nav`
     align-items: center;
     height: 70vh;
 `
-export const Item = styled(Link)`
+export const Item = styled.a`
     display: flex;
     align-items: center;
     justify-content: center;

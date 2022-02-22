@@ -10,7 +10,11 @@ import {
     faSearch
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function Sidebar(){
+
+type SidebarProps = {
+    changeRoute: (path: String) => void
+}
+export default function Sidebar({changeRoute}: SidebarProps){
     return (
         <S.Container>
             
@@ -20,10 +24,10 @@ export default function Sidebar(){
             </S.BoxProfile>
 
             <S.Nav>
-                <S.Item to='/'><FontAwesomeIcon icon={faHeadphonesAlt} />Novidades</S.Item>
-                <S.Item to='/search'><FontAwesomeIcon icon={faSearch} />Procurar</S.Item>
-                <S.Item to='favourites'><FontAwesomeIcon icon={faHeart} />Favoritos</S.Item>
-                <S.Item to='/playlists'><FontAwesomeIcon icon={faPlayCircle} />Playlists</S.Item>
+                <S.Item onClick={ () => changeRoute('/discover') } ><FontAwesomeIcon icon={faHeadphonesAlt} />Novidades</S.Item>
+                <S.Item onClick={ () => changeRoute('/search') }><FontAwesomeIcon icon={faSearch} />Procurar</S.Item>
+                <S.Item onClick={ () => changeRoute('/favourites') }><FontAwesomeIcon icon={faHeart} />Favoritos</S.Item>
+                <S.Item onClick={ () => changeRoute('/playlists') }><FontAwesomeIcon icon={faPlayCircle} />Playlists</S.Item>
 
             </S.Nav>
 

@@ -1,22 +1,25 @@
 import React from "react"
 import * as S from'./styles'
+import Routes from '../../routes'
 import Sidebar from "../../components/Sidebar"
 import Header from "../../components/Header"
 import Player from "../../components/Player"
-import Main from "../../components/Main"
 
-interface Page {
-    children: React.ReactNode
-};
 
-export default function Default(props: Page){
+export default function Default(){
+    const [path, setPath] = React.useState<String>('/discover')
+
+    function changeRoute(path: String): void{
+        setPath(path)
+    }
+
     return (
         <S.Container>
-            <Sidebar/>
+            <Sidebar changeRoute={changeRoute}/>
 
             <Header/>
 
-            {props.children}
+            <Routes path={path} />
 
             <Player/>
             
