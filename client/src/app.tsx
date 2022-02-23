@@ -1,15 +1,15 @@
 import React from "react"
-import Default from './layouts/Default'
+import Dashboard from './layouts/Dashboard'
 import Login from "./layouts/Login"
 
 
 export default function App(){
-    const [authenticated, setAuthenticated] = React.useState(false)
 
-
-    if(!authenticated)
+    const code = new URLSearchParams(window.location.search).get('code')
+    
+    if(!code)
         return <Login/>
 
-    return <Default/>
+    return <Dashboard code={code}/>
     
 }
