@@ -12,7 +12,6 @@ type PropsDashboard = {
 
 export default function Dashboard({code}: PropsDashboard){
     const acessToken = useAuth(code)
-
     const [path, setPath] = React.useState<String>('/discover')
 
     function changeRoute(path: String): void{
@@ -25,7 +24,7 @@ export default function Dashboard({code}: PropsDashboard){
 
             <Header/>
 
-            <Routes path={path} />
+            <Routes path={path} token={acessToken}/>
 
             <Player/>
             

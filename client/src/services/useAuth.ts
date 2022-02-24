@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 
 const URL: String = 'http://localhost:5000'
 
 export function useAuth(code: String){
-    const [accessToken, setAccessToken] = useState()
-    const [refreshToken, setRefreshToken] = useState()
+    const [accessToken, setAccessToken] = useState<String>('')
+    const [refreshToken, setRefreshToken] = useState<String>()
     const [expiresIn, setExpiresIn] = useState()
 
     useEffect(() => {
@@ -21,11 +21,9 @@ export function useAuth(code: String){
 
             } catch (error) {
                 console.log(error);
-                /* window.location.href = "/" */
-            }
+                window.location.href = "/"
+            }   
             
-            
-
         })()
 
     }, [code])
@@ -43,7 +41,7 @@ export function useAuth(code: String){
 
             } catch (error) {
                 console.log(error);
-                /* window.location.href = "/" */
+                window.location.href = "/"
             }
         }
 
@@ -51,4 +49,6 @@ export function useAuth(code: String){
         return () => clearInterval(interval)
 
     }, [refreshToken, expiresIn])
+
+    return accessToken
 }

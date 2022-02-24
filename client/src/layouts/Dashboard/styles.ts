@@ -7,7 +7,7 @@ export const Container = styled.div`
     border-radius: 20px;
     display: grid;
     grid-template-columns: 225px calc(100% - 225px);
-    grid-template-rows: 200px auto 100px;
+    grid-template-rows: 130px auto 100px;
     grid-template-areas:    'sidebar header'
                             'sidebar main'
                             'sidebar player'

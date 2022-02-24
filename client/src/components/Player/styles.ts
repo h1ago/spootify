@@ -43,11 +43,11 @@ export const Controls = styled.div`
     svg:nth-of-type(3) {
         cursor: pointer;
         /* color: #39383D; */
-        color: #39383D;
+        color: ${props => props.theme.secondary};
     }
 
     svg:nth-of-type(2) {
-        color: #087F8C;
+        color: ${props => props.theme.primary};
         font-size: 35px;
         margin-left: 15px;
         margin-right: 15px;
@@ -63,7 +63,7 @@ export const Controls = styled.div`
         position: absolute;
         border-radius: 50%;
         z-index: 0;
-        border: 10px solid #087F8C;
+        border: 10px solid ${props => props.theme.primary};;
         background: white;
         box-sizing: content-box !important;
     }

@@ -2,15 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     grid-area: sidebar;
-    /* min-width: 225px;
-    width: 225px; */
-    background: #087F8C;
-    /* height: 100%; */
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
-    /* padding-top: 30px;
-    padding-bottom: 30px; */
+    background: ${props => props.theme.primary};
     transition: all 0.2s ease-in-out;
     will-change: width, min-width;
 `
