@@ -1,5 +1,7 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import * as S from'./styles'
+
+import SpotifyPlayer from "react-spotify-web-playback";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
@@ -13,10 +15,42 @@ import {
     faVolumeDown
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function Player(){
+interface PropsPlayer {
+    token: any,
+    trackUri: string | [string]
+}
+
+export default function Player({token, trackUri}: PropsPlayer){
+    const [play, setPlay] = useState<boolean>(false)
+
+    useEffect(() => {
+        setPlay(true)
+    }, [trackUri])
+
+    if (!token) return null;
+
     return (
         <S.Container>
-            <S.AlbumWrapper>
+            
+            <SpotifyPlayer
+                token={token}
+                callback={state => !state.isPlaying && setPlay(false)}
+                uris={trackUri ? trackUri : []}
+                play={play}
+                styles={{
+                bgColor: '#282828',
+                color: '#fff',
+                sliderColor: '#1db954',
+                sliderHandleColor: '#1cb954',
+                trackNameColor: '#fff',
+                }}
+            />
+
+        </S.Container>
+    )
+}
+
+{/* <S.AlbumWrapper>
                 <S.Album/>
                 <S.Title>Nothing's playing</S.Title>
             </S.AlbumWrapper>
@@ -35,8 +69,4 @@ export default function Player(){
                 <FontAwesomeIcon icon={faRandom} />
                 <FontAwesomeIcon icon={faRetweet} />
                 <FontAwesomeIcon icon={faVolumeDown} />
-            </S.ActionsControl>
-
-        </S.Container>
-    )
-}
+            </S.ActionsControl> */}

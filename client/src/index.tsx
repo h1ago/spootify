@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 const theme = {
   primary: '#ff7b00',
   secondary: '#39383D',
-  aux: '#171A21'
+  aux: '#171A21',
 }
 
 ReactDOM.render(
