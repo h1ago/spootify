@@ -1,12 +1,16 @@
 import React from 'react'
+import PlaybackContextProvider from './PlaybackContext'
 import TrackContextProvider from './TrackContext'
 
 
 const GlobalContext = ({children}: React.PropsWithChildren<any>) => {
 
     return (
+        
         <TrackContextProvider>
-            {children}
+            <PlaybackContextProvider>
+                {children}
+            </PlaybackContextProvider>
         </TrackContextProvider>
     )
 }

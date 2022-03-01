@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div.attrs((props: {size: number}) => props)`
     display: flex;
-    height: 100%;
+    height: ${props => props.size == 100 ? '100vh' : '100%'};
     align-items: center;
     justify-content: center;
 `;

@@ -3,25 +3,27 @@ import axios from "axios"
 
 const URL: String = 'http://localhost:5000'
 
-export function useAuth(code: String){
-    const [accessToken, setAccessToken] = useState<String>('')
-    const [refreshToken, setRefreshToken] = useState<String>()
+
+export default function useAuth(code: string){
+    const [accessToken, setAccessToken] = useState<string>()
+    const [refreshToken, setRefreshToken] = useState<string>()
     const [expiresIn, setExpiresIn] = useState()
 
     useEffect(() => {
 
         (async () => {
+
             try {
-                const {data}: any = await axios.post(`${URL}/login`, {code})
-                
+                const {data}: any = await axios.post(`${URL}/login`, {code}) 
                 const {access_token, refresh_token, expires_in} = data
+                
                 setAccessToken(access_token)
                 setRefreshToken(refresh_token)
                 setExpiresIn(expires_in)
 
             } catch (error) {
-                console.log(error);
                 window.location.href = "/"
+                console.log(error);
             }   
             
         })()

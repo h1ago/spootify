@@ -71,24 +71,10 @@ export const Controls = styled.div`
 export const Seekbar = styled.div`
     flex: 1;
     height: 4px;
+    /* background: #39383D; */
     background: #39383D;
     margin-left: 50px;
     margin-right: 50px;
-    border-radius: 2px;
-`
-
-export const Progress = styled.div.attrs((props: {size: number, duration: number}) => props)`
-    width: ${props => {
-        console.log('Size: '+ props.size);
-        console.log('Duration: '+ props.duration);
-        console.log('Size * 100= '+ props.size*100);
-        console.log('Size * 100 / Duration= '+ (props.size*100)/props.duration); 
-        return (props.size*100)/props.duration
-        }}%;
-    min-width: 0px;
-    max-width: 337px;
-    height: 4px;
-    background: red;
     border-radius: 2px;
 `
 export const ActionsControl = styled.div`
