@@ -24,7 +24,7 @@ export default function Dashboard({code}: PropsDashboard){
     
     if(!acessToken) 
         return <Loading size={100}/>
-
+    
     return (
         <S.Container>
             <Sidebar changeRoute={changeRoute}/>

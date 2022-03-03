@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect, useContext, useRef} from "react"
 import * as S from'./styles'
 import { startPlayback } from "../../services/api";
-import WebPlaybackSdk from "../../services/webPlaybackSdk";
+import WebPlaybackSdk, { PlayerSpotify } from "../../services/webPlaybackSdk";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
     faStepForward,
@@ -20,25 +20,35 @@ import SeekBar from "./SeekBar";
 
 const SPOTIFY_WEB_PLAYBACK_SDK_URL = "https://sdk.scdn.co/spotify-player.js";
 
+
 interface PropsPlayer {
     token: string,
     trackUri: string | [string]
 }
 
 export default function Player({token, trackUri}: PropsPlayer){
-    //Para não ter que utilizar os listeners javascript neste componente e poluí-lo, coloquei
-    //as informações úteis em um contexto
-    const {playback} = useContext(PlaybackContext)
-    const {player, device_id} = WebPlaybackSdk({token})
+    const {playback, setPlayback} = useContext(PlaybackContext)
+    const player = useRef<Spotify.Player>()
+    const deviceId = useRef<string>('')
+    
+    useEffect( () => {
+        WebPlaybackSdk({token, player, deviceId, setPlayback})
+    }, [])
 
-    async function handleSeek(pos_ms: number){
-        const newProgress_ms = await player?.seek(pos_ms)
-        return newProgress_ms
+    async function handleSeek(positionMs: number, positionPercent: number){
+        if(player.current != null){
+            await player.current.seek(positionMs)
+            setPlayback({
+                isPaused: false,
+                isPlaying: true,
+                position: positionPercent,
+                duration: playback.duration
+            }) 
+        }
     }
 
-    if(!player || !device_id)
+    if(player.current == null && deviceId.current == null) 
         return <Loading size={20}/>
-        
 
     return (
         <S.Container>
@@ -48,15 +58,12 @@ export default function Player({token, trackUri}: PropsPlayer){
             </S.AlbumWrapper>
 
             <S.Controls>
-                <FontAwesomeIcon onClick={() => player.previousTrack()} icon={faStepBackward} />
-                <FontAwesomeIcon onClick={ () => startPlayback(token, device_id)} icon={faPlayCircle} />
-                <FontAwesomeIcon onClick={() => player.nextTrack()} icon={faStepForward} />
+                <FontAwesomeIcon onClick={() => player?.current?.previousTrack()} icon={faStepBackward} />
+                <FontAwesomeIcon onClick={ () => startPlayback(token, deviceId.current)} icon={faPlayCircle} />
+                <FontAwesomeIcon onClick={() => player?.current?.nextTrack()} icon={faStepForward} />
             </S.Controls>
-
-            {/* <S.Seekbar>
-                <S.Progress size={playback.position} duration={playback.duration}/>
-            </S.Seekbar> */}
-            <SeekBar handleSeek={handleSeek} progress_ms={playback.position} duration_ms={playback.duration} />
+            
+            <SeekBar handleSeek={handleSeek}/>
 
             <S.ActionsControl>
                 <FontAwesomeIcon icon={faEllipsisH} />

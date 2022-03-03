@@ -1,44 +1,61 @@
-import React, { MouseEventHandler, useRef, useState } from "react"
+import React, { MouseEventHandler, useContext, useEffect, useRef, useState } from "react"
+import { PlaybackContext } from "../../../context/PlaybackContext"
 import * as S from "./styles"
+import ProgressBar from "./ProgressBar"
 
-interface PropsSeekBar{
-    progress_ms: number,
-    duration_ms: number,
+interface PropsSeekBar {
     handleSeek: Function
 }
 
-export default function SeekBar({progress_ms, duration_ms, handleSeek}: PropsSeekBar){
-    const [dragPointMouse, setDragPointMouse] = useState<number>(0)
+export default function SeekBar({handleSeek}: PropsSeekBar){
+    const {playback} = useContext(PlaybackContext)
+    const seekBarRef = useRef<HTMLDivElement>(null)
+    const [positionDragMouse, setPositionDragMouse] = useState<number>(playback.position)
     const [isDragging, setIsDragging] = useState<boolean>(false)
-    const seekBarRef = React.useRef<HTMLHeadingElement>(null)
-    let progress = (progress_ms*100)/duration_ms
+    const [isHover, setIsHover] = useState<boolean>(false)
 
-    function calculateMousePointerReference(posX: number){
+    function calculateDragDistance(posX: number){
         const rect = seekBarRef?.current?.getBoundingClientRect()
-        if(rect != undefined){//typescript exigindo
+        if(rect != undefined){
             const offsetRatio = ((posX-Math.trunc(rect.x))/rect.width)*100
-            if(offsetRatio >= 0 && offsetRatio <= 100)
-                setDragPointMouse(offsetRatio)  
+            if(offsetRatio >= 0 && offsetRatio <= 100){
+                setPositionDragMouse(offsetRatio)  
+            }
+                
         }
     }
 
-    function handleDrag(e: React.MouseEvent<HTMLDivElement>){
+    function handleDrag(event: React.MouseEvent<HTMLDivElement>){
+        calculateDragDistance(event.clientX)
         setIsDragging(true)
-        calculateMousePointerReference(e.clientX)
     }
 
-    async function handleDragEnd(e: React.MouseEvent<HTMLDivElement>){
-        calculateMousePointerReference(e.clientX)
+    async function handleDragEnd(event: React.MouseEvent<HTMLDivElement>){
         //converter % em ms
-        const pos_ms: number = Math.trunc(Math.trunc(dragPointMouse)*duration_ms/100)
-        //a api retorna a % e não o ms da música
-        progress = await handleSeek(pos_ms)
+        const pos_ms: number = Math.trunc(Math.trunc(positionDragMouse)*playback.duration/100)
+        await handleSeek(pos_ms, positionDragMouse)
         setIsDragging(false)
     }
-    
+
+    function handleMouseEnter(event: React.MouseEvent<HTMLDivElement>){
+        setIsHover(true)
+    }
+
+    function handleMouseLeave(event: React.MouseEvent<HTMLDivElement>){
+        setIsHover(false)
+    }
+
+
     return (
-        <S.Container ref={seekBarRef}>
-            <S.ProgressBar width={ isDragging ? dragPointMouse : progress }/>
+        <S.Container ref={seekBarRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ProgressBar 
+                durationMs={playback.duration} 
+                position={playback.position} 
+                positionDrag={positionDragMouse}
+                isPlaying={playback.isPlaying}
+                isDragging={isDragging}
+                isHover={isHover} 
+            />
             <S.Slider onDrag={handleDrag} onDragEnd={handleDragEnd}/>
         </S.Container>
     )

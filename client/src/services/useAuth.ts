@@ -22,7 +22,7 @@ export default function useAuth(code: string){
                 setExpiresIn(expires_in)
 
             } catch (error) {
-                window.location.href = "/"
+                /* window.location.href = "/" */
                 console.log(error);
             }   
             

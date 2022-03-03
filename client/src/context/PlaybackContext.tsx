@@ -7,13 +7,12 @@ type Track = {
 }
 
 export type Playback = {
-    is_active?: boolean,
-    paused?: boolean,
+    isPaused: boolean,
+    isPlaying: boolean,
     position: number,
-    shuffle?: boolean,
-    loading?: boolean,
     duration: number,
-    current_track?: Track
+    isDragging?: boolean,
+    currentTrack?: Track
 }
 
 interface PropsPlaybackContext {
@@ -24,8 +23,11 @@ interface PropsPlaybackContext {
 
 const DEFAULT_VALUE: PropsPlaybackContext = {
     playback:{
+        isPaused: true,
+        isPlaying: false,
         position: 0,
-        duration: 1
+        isDragging: false,
+        duration: 1,
     },
     setPlayback: () => {}
 }
