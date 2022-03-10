@@ -1,8 +1,10 @@
 import React, {createContext, useState} from 'react'
 
-type Track = {
+export type Track = {
     name: string,
     album: Spotify.Album,
+    uri: string,
+    id: string | null,
     artists: Spotify.Artist[]
 }
 
@@ -11,6 +13,9 @@ export type Playback = {
     isPlaying: boolean,
     position: number,
     duration: number,
+    repeat: number,
+    shuffle: boolean,
+    volume?: number,
     isDragging?: boolean,
     currentTrack?: Track
 }
@@ -21,11 +26,13 @@ interface PropsPlaybackContext {
 }
 
 
-const DEFAULT_VALUE: PropsPlaybackContext = {
+export const DEFAULT_VALUE: PropsPlaybackContext = {
     playback:{
         isPaused: true,
         isPlaying: false,
         position: 0,
+        repeat: 0,
+        shuffle: false,
         isDragging: false,
         duration: 1,
     },

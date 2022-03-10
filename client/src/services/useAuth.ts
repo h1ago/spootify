@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import axios from "axios"
+import { TokenContext, Token } from "../context/TokenContext"
 
 const URL: String = 'http://localhost:5000'
 
 
 export default function useAuth(code: string){
-    const [accessToken, setAccessToken] = useState<string>()
-    const [refreshToken, setRefreshToken] = useState<string>()
-    const [expiresIn, setExpiresIn] = useState()
+    const {token, setToken} = useContext(TokenContext)
 
     useEffect(() => {
 
@@ -16,10 +15,12 @@ export default function useAuth(code: string){
             try {
                 const {data}: any = await axios.post(`${URL}/login`, {code}) 
                 const {access_token, refresh_token, expires_in} = data
-                
-                setAccessToken(access_token)
-                setRefreshToken(refresh_token)
-                setExpiresIn(expires_in)
+                const token: Token = {
+                    acessToken: access_token,
+                    refreshToken: refresh_token,
+                    expiresIn: expires_in
+                }
+                setToken(token)
 
             } catch (error) {
                 /* window.location.href = "/" */
@@ -31,15 +32,19 @@ export default function useAuth(code: string){
     }, [code])
 
     useEffect( () => {
-        if (!refreshToken || !expiresIn) return
+        if (!token.refreshToken || !token.expiresIn) return
 
         async function RefreshToken(){
             try {
-                const {data}: any = await axios.post(`${URL}/refresh`, {refreshToken}) 
+                const {data}: any = await axios.post(`${URL}/refresh`, token.refreshToken) 
 
                 const {access_token, expires_in} = data
-                setAccessToken(access_token)
-                setExpiresIn(expires_in)
+                const newToken: Token = {
+                    acessToken: access_token,
+                    refreshToken: token.refreshToken,
+                    expiresIn: expires_in
+                }
+                setToken(newToken)
 
             } catch (error) {
                 console.log(error);
@@ -47,10 +52,9 @@ export default function useAuth(code: string){
             }
         }
 
-        let interval: NodeJS.Timer = setInterval(RefreshToken, (expiresIn - 60) * 1000 ) //tempo de expiração do token 3600 segundos
+        let interval: NodeJS.Timer = setInterval(RefreshToken, (token.expiresIn - 60) * 1000 ) //tempo de expiração do token 3600 segundos
         return () => clearInterval(interval)
 
-    }, [refreshToken, expiresIn])
+    }, [token.refreshToken, token.expiresIn])
 
-    return accessToken
 }

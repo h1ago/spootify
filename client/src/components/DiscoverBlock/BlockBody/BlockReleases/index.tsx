@@ -3,25 +3,39 @@ import * as S from'./styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { TrackContext } from "../../../../context/TrackContext";
+import { startPlayback } from "../../../../services/api";
+import { TokenContext } from "../../../../context/TokenContext";
+import { DeviceIdContext } from "../../../../context/DeviceIdContext";
 
 interface PropsReleases {
     albums: any
 }
 
 export default function BlockBody({albums}: PropsReleases){
-
-    const {setUri} = useContext(TrackContext)
+    const {token} = useContext(TokenContext)
+    const {deviceId} = useContext(DeviceIdContext)
 
     return (
         <>
             {
                 albums.map((album: any, index: number) => (
+                    
                     <S.Item 
                         key={index}
-                        onClick={ () => setUri(album.uri) }
+                        to={`/album/${album.id}`}
                     >
                         <S.Image src={album.images[1].url} />
-                        <S.PlayButton><FontAwesomeIcon  icon={faPlayCircle}/></S.PlayButton>
+
+                        <S.PlayButton 
+                            onClick={ async (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                await startPlayback(token.acessToken, deviceId, undefined, album.uri)
+                            }}
+                        >
+                            <FontAwesomeIcon  icon={faPlayCircle}/>
+                        </S.PlayButton>
+
                         <S.Title>
                             {
                                 album.name.length > 55

@@ -8,14 +8,16 @@ interface PropsCategories {
 
 export default function BlockCategories({categories}: PropsCategories){
 
-    const {setUri} = useContext(TrackContext)
-
     return (
         <>
             {
                 categories.map( (category: any, index: number) => (
 
-                    <S.Item key={index}>
+                    <S.Item 
+                        key={index}
+                        to={`/playlists`}
+                        state={{genreId: category.id}}
+                    >
                         <S.Image src={category.icons[0].url} />
                         <S.Title>{category.name}</S.Title>
                     </S.Item>

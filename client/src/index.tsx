@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import resetCss from 'styled-reset'
 import App from './app'
@@ -20,9 +21,11 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
 
-    <ThemeProvider theme={theme}>
-      <App/>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App/>
+      </ThemeProvider>
+    </BrowserRouter>
     
           
   </React.StrictMode>,

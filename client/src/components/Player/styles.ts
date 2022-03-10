@@ -18,7 +18,7 @@ export const AlbumWrapper = styled.div`
     align-items: center;
 `
 
-export const Album = styled.div`
+export const Album = styled.img`
     margin-right: 20px;
     width: 50px;
     height: 50px;
@@ -29,11 +29,19 @@ export const Album = styled.div`
 
 export const Title = styled.p`
     font-weight: 500;
+    width: 250px;
     color: #39383D;
     font-size: 17px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    span{
+        font-weight: 600;
+    }
 `
 export const Controls = styled.div`
-    margin-left: 50px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     position: relative;
@@ -92,10 +100,10 @@ export const Progress = styled.div.attrs((props: {size: number, duration: number
     border-radius: 2px;
 `
 export const ActionsControl = styled.div`
+    width: 142px;
     color: #39383D;
-
-    svg:not(:last-of-type) {
-        margin-right: 30px;
+    cursor: pointer;
+    svg{
+        margin-right: 15px;
     }
 `
-

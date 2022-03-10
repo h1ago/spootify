@@ -1,22 +1,23 @@
 import React, {createContext, useState} from 'react'
+import { Track } from './PlaybackContext'
 
 interface PropsTrackContext {
-    uri: string | [string],
-    setUri: React.Dispatch<React.SetStateAction<string>>
+    track: any,
+    setTrack: React.Dispatch<React.SetStateAction<any>>
 }
 
 const DEFAULT_VALUE = {
-    uri: '',
-    setUri: () => {}
+    track: '',
+    setTrack: () => {}
 }
 
 const TrackContext = createContext<PropsTrackContext>(DEFAULT_VALUE)
 
 const TrackContextProvider = ({children}: React.PropsWithChildren<React.ReactNode>) => {
-    const [uri, setUri] = useState(DEFAULT_VALUE.uri)
+    const [track, setTrack] = useState(DEFAULT_VALUE.track)
 
     return (
-        <TrackContext.Provider value={{uri, setUri}}>
+        <TrackContext.Provider value={{track, setTrack}}>
             {children}
         </TrackContext.Provider>
     )

@@ -3,7 +3,7 @@ import SpotifyWebApi from "spotify-web-api-node"
 
 const CLIENT_ID = 'da91fb72774f451c861801accf5a54dc'
 const REDIRECT_URI = 'http://localhost:3000/'
-const CLIENT_SECRET = "906be15cb67f484eafd2298cc771dee0"
+const CLIENT_SECRET = "d52912f96d2d4f2da1510348e3fd3d70"
 const routes = Router()
 
 routes.post("/login", async (req: Request, res: Response) => {

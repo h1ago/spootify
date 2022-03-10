@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     grid-area: main;
-    padding: 30px;
+    padding-left: 15px;
+
     overflow-y: scroll;
 
     ::-webkit-scrollbar {
@@ -19,11 +20,3 @@ export const Container = styled.div`
     background: transparent;
     }
 `
-
-export const TitlePage = styled.h1`
-    margin-top: -20px;
-    font-size: 30px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #A5A5B1;
-` 

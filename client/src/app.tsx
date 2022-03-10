@@ -10,7 +10,7 @@ export default function App(){
     
     if(!code)
         return <Login/>
-
+    
     return (
         <GlobalContext>
             <Dashboard code={code}/>

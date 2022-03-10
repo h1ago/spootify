@@ -1,17 +1,22 @@
 import React from 'react'
+import DeviceIdContextProvider from './DeviceIdContext'
 import PlaybackContextProvider from './PlaybackContext'
+import TokenContextProvider from './TokenContext'
 import TrackContextProvider from './TrackContext'
 
 
 const GlobalContext = ({children}: React.PropsWithChildren<any>) => {
 
     return (
-        
-        <TrackContextProvider>
-            <PlaybackContextProvider>
-                {children}
-            </PlaybackContextProvider>
-        </TrackContextProvider>
+        <TokenContextProvider>
+            <DeviceIdContextProvider>
+                <TrackContextProvider>
+                    <PlaybackContextProvider>
+                        {children}
+                    </PlaybackContextProvider>
+                </TrackContextProvider>
+            </DeviceIdContextProvider>
+        </TokenContextProvider>
     )
 }
 

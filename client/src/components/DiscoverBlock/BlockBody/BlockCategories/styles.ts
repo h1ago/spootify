@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 export const PlayButton = styled.div`
     position: absolute;
@@ -16,7 +17,7 @@ export const PlayButton = styled.div`
         transform: scale(1.2);
     }
 `
-export const Item = styled.div`
+export const Item = styled(Link)`
     display: inline-block;
     position: relative;
     width: 190px;

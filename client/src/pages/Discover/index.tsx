@@ -1,13 +1,12 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
 import * as S from'./styles'
 import DiscoverBlock from "../../components/DiscoverBlock"
 import * as api from '../../services/api'
+import { TokenContext } from "../../context/TokenContext"
 
-interface PropsDiscover{
-    token: String
-}
 
-export default function Discover({token}: PropsDiscover){
+export default function Discover(){
+    const {token} = useContext(TokenContext)
     const [albumsReleases, setAlbumsReleases] = useState([])
     const [playlistsFeatured, setPlaylistsFeatured] = useState([])
     const [browseGenres, setBrowseGenres] = useState([])
@@ -15,12 +14,14 @@ export default function Discover({token}: PropsDiscover){
     useEffect( () => {
         ( async function (){
             try {
-                const {albums} = await api.getReleases(token)
-                const {playlists} = await api.getFeatured(token)
-                const {categories} = await api.getBrowseGenres(token)
+                const data = await api.getReleases(token.acessToken)
+                const {albums} = data
+                const {playlists} = await api.getFeatured(token.acessToken)
+                const {categories} = await api.getBrowseGenres(token.acessToken)
                 setAlbumsReleases(albums.items)
                 setPlaylistsFeatured(playlists.items)
                 setBrowseGenres(categories.items)
+                console.log(data)
 
             } catch (error) {
                 console.log(error)
