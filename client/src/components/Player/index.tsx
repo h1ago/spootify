@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useContext, useRef} from "react"
+import { useContext } from "react"
 import * as S from'./styles'
-import * as API from "../../services/api";
+import { pause, repeat, resume, shuffle, skipToNext, skipToPrevious } from "../../services/api";
 import WebPlaybackSdk from "../../services/webPlaybackSdk";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
@@ -9,19 +9,19 @@ import {
     faPauseCircle,
     faStepBackward,
     faEllipsisH,
-    faHeart,
     faRandom,
-    faRetweet,
-    faVolumeDown
+    faRetweet
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../Loading";
 import { PlaybackContext } from "../../context/PlaybackContext";
 import SeekBar from "./SeekBar";
-import Volume from "./Volume";
+import VolumeButton from "./VolumeButton";
 import { TokenContext } from "../../context/TokenContext";
 import { DeviceIdContext } from "../../context/DeviceIdContext";
+import LikeSongButton from "./LikeSongButon";
+import Error from "../Error";
 
-const SPOTIFY_WEB_PLAYBACK_SDK_URL = "https://sdk.scdn.co/spotify-player.js";
+
 
 
 export default function Player(){
@@ -30,16 +30,8 @@ export default function Player(){
     const {playback, setPlayback} = useContext(PlaybackContext)
     WebPlaybackSdk({token: token.acessToken, setPlayback})
 
-    async function handleSeek(positionMs: number, positionPercentage: number){
-        setPlayback({
-            isPaused: false,
-            isPlaying: true,
-            repeat: playback.repeat,
-            position: positionPercentage,
-            shuffle: playback.shuffle,
-            duration: playback.duration
-        }) 
-    }
+    if(deviceId == 'Premium User Required')
+        return <Error>Webplayer disponível apenas para usuários spotify premium</Error>
 
     if(!deviceId) 
         return <Loading size={20}/>
@@ -51,44 +43,45 @@ export default function Player(){
                 <S.Title>{
                     playback.currentTrack 
                     ? <><span>{playback?.currentTrack.name}</span>  -  {playback?.currentTrack.artists.map(artist => ' ' + artist.name)}</>
-                    : "Nothing's playing"
+                    : "Nenhuma música"
                 }
                 </S.Title>
             </S.AlbumWrapper>
 
             <S.Controls>
-                <FontAwesomeIcon onClick={() => API.skipToPrevious(token.acessToken)} icon={faStepBackward} />
+                <FontAwesomeIcon onClick={async () => await skipToPrevious(token.acessToken)} icon={faStepBackward} />
                 <FontAwesomeIcon 
-                    onClick={ () => playback.isPaused ? API.resume(token.acessToken, deviceId) : API.pause(token.acessToken)} 
+                    onClick={ async () => playback.isPaused ? await resume(token.acessToken, deviceId) : await pause(token.acessToken)} 
                     icon={playback.isPlaying ? faPauseCircle : faPlayCircle} 
                 />
-                <FontAwesomeIcon onClick={() => API.skipToNext(token.acessToken)} icon={faStepForward} />
+                <FontAwesomeIcon onClick={async () => skipToNext(token.acessToken)} icon={faStepForward} />
             </S.Controls>
             
-            <SeekBar handleSeek={handleSeek}/>
+            <SeekBar
+                token={token.acessToken}
+                position={playback.position}
+                duration={playback.duration}
+                isPlaying={playback.isPlaying}
+            />
 
             <S.ActionsControl>
-                <FontAwesomeIcon icon={faEllipsisH} />
-                <FontAwesomeIcon 
-                    onClick={() => API.saveTrack}
-                    icon={faHeart}
+                {/* <FontAwesomeIcon icon={faEllipsisH} /> */}
+                <LikeSongButton
+                    token={token.acessToken}
+                    id={playback.currentTrack?.id}
                 />
+
                 <FontAwesomeIcon 
-                    onClick={() => API.shuffle(token.acessToken, playback)}
-                    color={playback.shuffle ? '#ff7b00' : '39383D'}
+                    onClick={async () => await shuffle(token.acessToken, playback)}
+                    color={playback.shuffle ? '#ff7b00' : '#39383D'}
                     icon={faRandom} 
                 />
                 <FontAwesomeIcon
-                    onClick={() => API.repeat(token.acessToken, playback)}
-                    color={playback.repeat !=0 ? '#ff7b00' : '39383D'}
+                    onClick={async () => await repeat(token.acessToken, playback)}
+                    color={playback.repeat !=0 ? '#ff7b00' : '#39383D'}
                     icon={faRetweet} 
-                    
                 />
-                {/* <FontAwesomeIcon 
-                    icon={faVolumeDown} 
-                /> */}
-
-                <Volume/>
+                <VolumeButton token={token.acessToken} />
             </S.ActionsControl>
         </S.Container>
     )

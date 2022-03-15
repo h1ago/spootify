@@ -21,7 +21,6 @@ export default function Discover(){
                 setAlbumsReleases(albums.items)
                 setPlaylistsFeatured(playlists.items)
                 setBrowseGenres(categories.items)
-                console.log(data)
 
             } catch (error) {
                 console.log(error)

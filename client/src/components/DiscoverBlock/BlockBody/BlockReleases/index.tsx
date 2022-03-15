@@ -1,8 +1,7 @@
-import React, { useContext } from "react"
+import { useContext } from "react"
 import * as S from'./styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import { TrackContext } from "../../../../context/TrackContext";
 import { startPlayback } from "../../../../services/api";
 import { TokenContext } from "../../../../context/TokenContext";
 import { DeviceIdContext } from "../../../../context/DeviceIdContext";

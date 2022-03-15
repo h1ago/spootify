@@ -41,15 +41,13 @@ export default function Sidebar(){
             </S.BoxProfile>
 
             <S.Nav>
-                <S.Item to="/" ><FontAwesomeIcon icon={faHeadphonesAlt} />Novidades</S.Item>
-                <S.Item to="/favourite"><FontAwesomeIcon icon={faSearch} />Procurar</S.Item>
-                <S.Item to="/favourite"><FontAwesomeIcon icon={faHeart} />Favoritos</S.Item>
+                <S.Item to="/"><FontAwesomeIcon icon={faHeadphonesAlt} /><span>Novidades</span></S.Item>
+                <S.Item to="/search"><FontAwesomeIcon icon={faSearch} /><span>Procurar</span></S.Item>
                 <S.Item 
-                    to="/playlists"
-                    state={{userId: user.id}}
+                    to="/favourite"
+                    state={{user: user}}
                 >
-                    <FontAwesomeIcon icon={faPlayCircle} />
-                    Playlists
+                    <FontAwesomeIcon icon={faHeart}/><span>Favoritos</span>
                 </S.Item>
 
             </S.Nav>

@@ -10,6 +10,9 @@ export const Container = styled.div`
     grid-template-rows: 130px auto 100px;
     grid-template-areas:    'sidebar header'
                             'sidebar main'
-                            'sidebar player'
+                            'sidebar player';
     
+    @media only screen and (max-width: 650px) {
+        grid-template-columns: 75px calc(100% - 75px);
+    }
 `

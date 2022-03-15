@@ -1,43 +1,39 @@
-import React, { useContext, useEffect, useState } from "react"
-import { useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 import CardItem from "../../components/CardItem";
 import Loading from "../../components/Loading";
+import Title from "../../components/Title";
 import { DeviceIdContext } from "../../context/DeviceIdContext";
 import { TokenContext } from "../../context/TokenContext";
-import { getPlaylistsGenre, getPlaylistsUser } from "../../services/api";
+import { getPlaylistsGenre } from "../../services/api";
 import * as S from'./styles'
 
 export default function Playlists(){
     const [playlists, setPlaylists] = useState<any>()
     const {token} = useContext(TokenContext)
     const {deviceId} = useContext(DeviceIdContext)
-    const {state}: any = useLocation();
-    const userId = state.userId
-    const genreId = state.genreId
+    const {id} = useParams()
     
     useEffect( () => {
+        if(!id) return 
         ( async () => {
-            let playlists
-            if(userId)
-                playlists = await getPlaylistsUser(token.acessToken, userId)
-            else
-                playlists = await getPlaylistsGenre(token.acessToken, genreId)
-            console.log(playlists)
+            const playlists = await getPlaylistsGenre(token.acessToken, id)
             setPlaylists(playlists)
         } )()
     }, [] )
 
-    if(!playlists)
+    if(!playlists || !id)
         return <Loading size={100} />
 
     return (
         <S.Container>
 
-            <S.TitlePage>{userId ? 'Minhas Playlists' : 'Playlists'}</S.TitlePage>
+            <Title withButton={false}>{id}</Title>
 
             {
-                playlists.items.map( (playlist: any) => (
+                playlists.items.map( (playlist: any, index: number) => (
                     <CardItem
+                        key={index}
                         acessToken={token.acessToken}
                         deviceId={deviceId}
                         path={`/playlist/${playlist.id}`}

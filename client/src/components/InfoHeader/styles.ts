@@ -10,6 +10,9 @@ export const Container = styled.div`
 export const Image = styled.img`
     width: 250px;
     height: 200px;
+    @media only screen and (max-width: 650px){
+        display: none;
+    }
 ` 
 export const Wrapper = styled.div`
     display: flex;
@@ -29,7 +32,7 @@ export const Title = styled.p`
     font-size: 48px;
     text-shadow: 0 0 3px #FFFFFF;
     font-weight: bold;
-    height: 110px;
+    height: 130px;
     align-items: center;
     overflow: hidden;
 ` 
@@ -39,7 +42,19 @@ export const Description = styled.p`
     margin-bottom: 10px;
     color: #bfc0c0;
 ` 
-export const NameArtist = styled.p`
+export const SubTitle = styled.p`
     font-size: 16px;
     font-weight: 600;
+`
+export const Name = styled.span`
+    
 ` 
+export const NumberGeneric = styled.span`
+    
+` 
+export const NumberSongs = styled.span`
+    
+` 
+export const TotalTime = styled.span`
+    
+`

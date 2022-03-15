@@ -6,25 +6,37 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    /* background: #FBFBFB;   */
     background-color: #F5F5F5;
     box-shadow: 1px 1px 15px 0px rgb(0 0 0 / 10%);
     backdrop-filter: blur(5px);
     transition: height 0.2s ease-in-out;
+
+    @media only screen and (max-width: 650px){
+        flex-direction: column;
+    }
 `
 
 export const AlbumWrapper = styled.div`
     display: flex;
+    width: 30%;
     align-items: center;
+    @media only screen and (max-width: 650px){
+        margin-top: 10px;
+        width: 100%;
+    }
 `
 
 export const Album = styled.img`
     margin-right: 20px;
-    width: 50px;
-    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
     background: #333;
     border-radius: 6px;
     display: block;
+
+    @media only screen and (max-width: 650px){
+        display: none;
+    }
 `
 
 export const Title = styled.p`
@@ -38,6 +50,10 @@ export const Title = styled.p`
     text-overflow: ellipsis;
     span{
         font-weight: 600;
+    }
+
+    @media only screen and (max-width: 650px){
+        width: 100%;
     }
 `
 export const Controls = styled.div`
@@ -76,23 +92,8 @@ export const Controls = styled.div`
         box-sizing: content-box !important;
     }
 `
-export const Seekbar = styled.div`
-    flex: 1;
-    height: 4px;
-    background: #39383D;
-    margin-left: 50px;
-    margin-right: 50px;
-    border-radius: 2px;
-`
-
 export const Progress = styled.div.attrs((props: {size: number, duration: number}) => props)`
-    width: ${props => {
-        console.log('Size: '+ props.size);
-        console.log('Duration: '+ props.duration);
-        console.log('Size * 100= '+ props.size*100);
-        console.log('Size * 100 / Duration= '+ (props.size*100)/props.duration); 
-        return (props.size*100)/props.duration
-        }}%;
+    width: ${props => (props.size*100)/props.duration}%;
     min-width: 0px;
     max-width: 337px;
     height: 4px;
@@ -101,9 +102,12 @@ export const Progress = styled.div.attrs((props: {size: number, duration: number
 `
 export const ActionsControl = styled.div`
     width: 142px;
-    color: #39383D;
     cursor: pointer;
     svg{
         margin-right: 15px;
+    }
+
+    @media only screen and (max-width: 650px){
+        display: none;
     }
 `

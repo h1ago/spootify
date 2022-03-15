@@ -44,7 +44,6 @@ function initializePlayer(
     })
     //Ready player
     spotifyPlayer.addListener("ready", async ({device_id}) => {
-        console.log(device_id)
         setDeviceId(device_id)
     })
     spotifyPlayer.addListener("not_ready", ({ device_id }) => {
@@ -59,9 +58,7 @@ function initializePlayer(
         let isPlaying = false
         if(!state.paused && !state.loading && state.position > 0)
             isPlaying = true
-
-        
-
+            
         const playback: Playback  = {
             isPaused: state.paused,
             position: state.position,
@@ -84,6 +81,7 @@ function initializePlayer(
     })
     spotifyPlayer.addListener('account_error', ({ message }) => {
         console.error(message)
+        setDeviceId('Premium User Required')
     })
 
     // Conectar o player

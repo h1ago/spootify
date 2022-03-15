@@ -1,6 +1,5 @@
-import React, { useContext } from "react"
+import { useContext } from "react"
 import * as S from'./styles'
-import { TrackContext } from "../../../../context/TrackContext";
 import { startPlayback } from "../../../../services/api";
 import { DeviceIdContext } from "../../../../context/DeviceIdContext";
 import { TokenContext } from "../../../../context/TokenContext";

@@ -24,7 +24,6 @@ routes.post("/login", async (req: Request, res: Response) => {
         res.json({access_token, refresh_token, expires_in})
         
     } catch (error) {
-        console.log(error)
         res.sendStatus(400)
     }
 })
@@ -48,7 +47,6 @@ routes.post("/refresh", async (req: Request, res: Response) => {
         res.json({access_token, expires_in})
         
     } catch (error) {
-        console.log(error)
         res.sendStatus(400)
     }
 })

@@ -9,6 +9,7 @@ export default function Login(){
     
     return (
         <S.Container>
+            <S.LogoSpotify src={require('../../assets/spotify-login.jpg')} />
             <S.Button href={AUTH_URL}>Login</S.Button>
         </S.Container>
     )

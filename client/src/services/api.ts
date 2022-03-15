@@ -12,6 +12,17 @@ export async function getUser(token: String){
         .catch(error => error)
 }
 
+export async function getSearch(token: string, query: string){
+    const url = `https://api.spotify.com/v1/search?q=${query}&type=track,album,playlist&limit=7`
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    
+    return await axios.get(url, config)
+        .then(response => response.data)
+        .catch(error => {throw new Error(error)})
+}
+
 export async function getReleases(token: String){
     const LIMIT_ALBUMS = 20;
     const url = `https://api.spotify.com/v1/browse/new-releases?country=BR&limit=${LIMIT_ALBUMS}`
@@ -81,30 +92,25 @@ export async function getPlaylist(token: string, id: string){
         .catch(error => error)
 }
 
-export function getPlaylistsUser(token: String, id: string){
-    const url = `https://api.spotify.com/v1/users/${id}/playlists`
+export async function getUserSavedTrack(token: string){
+    const url = `https://api.spotify.com/v1/me/tracks`
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }
     
-    return axios.get(url, config)
+    return await axios.get(url, config)
         .then(response => response.data)
         .catch(error => error)
 }
 
 export async function startPlayback(token: string, deviceId: string, uri?: string, contextUri?: string){
-    let url
-    if(deviceId == undefined)
-        url = `https://api.spotify.com/v1/me/player/play`
-    else
-        url = `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`
-    
+    const url = `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`
     let data
     if(!uri)
         data = { context_uri: contextUri}
     else
         data = { uris: [uri]}
-    
+
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }
@@ -191,6 +197,18 @@ export async function saveTrack(token: string, id: any){
         .catch(error => error)
 }
 
+export async function removeTrack(token: string, id: any){
+    if (!id) return null
+    const url = `https://api.spotify.com/v1/me/tracks/?ids=${id}`
+
+    const instance = axios.create({
+        headers:{'Authorization': `Bearer ${token}`}
+    })
+    return await instance.delete(url)
+        .then(response => response.data)
+        .catch(error => error)
+}
+
 export async function repeat(token: string, playback: Playback){
     let state = 'track'
     if(playback.repeat != 0)
@@ -217,8 +235,19 @@ export async function shuffle(token: string, playback: Playback){
         .catch(error => error)
 }
 
-export async function setVolume(token: string, percent: number){
+export async function changeVolume(token: string, percent: number){
     const url = `https://api.spotify.com/v1/me/player/volume?volume_percent=${percent}`
+
+    const instance = axios.create({
+        headers:{'Authorization': `Bearer ${token}`}
+    })
+    return await instance.put(url)
+        .then(response => response.data)
+        .catch(error => error)
+}
+
+export async function seekToPosition(token: string, position: number){
+    const url = `https://api.spotify.com/v1/me/player/seek?position_ms=${position}`
 
     const instance = axios.create({
         headers:{'Authorization': `Bearer ${token}`}

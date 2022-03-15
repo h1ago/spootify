@@ -39,7 +39,22 @@ export const AlbumName = styled.div`
     flex-basis: 0;
     margin-left: 10px;
     font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #ced4da;
+` 
+export const AddedAt = styled.div`
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #ced4da;
+
+    @media only screen and (max-width: 650px){
+        display: none;
+    }
 ` 
 export const TimeItem = styled.div`
     text-align: center;

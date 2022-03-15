@@ -10,12 +10,13 @@ export const Container = styled.div`
 
     h1{
         color: ${props => props.theme.primary};
-        font-size: 3.87rem;
+        font-size: 1.87rem;
         text-transform: uppercase;
         font-weight: 600;
     }
 
     p{
         text-align: center;
+        font-weight: 600;
     }
 `;

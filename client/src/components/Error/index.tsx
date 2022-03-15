@@ -1,11 +1,11 @@
 import React from "react"
 import { Container } from "./styles"
 
-export default function Error(){
+export default function Error({children}: any){
     return (
         <Container>
             <h1>OPS!</h1>  
-            <p> Ocorreu um erro inesperado. Tente novamente.</p> 
+            <p>{children}</p> 
         </Container>
     )
 }

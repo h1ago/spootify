@@ -1,10 +1,25 @@
 import styled from 'styled-components'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export const Container = styled.div`
     background-color: #343a40;
     display: flex;
     flex-direction: column;
 `
+
+export const ButtonPlay = styled(FontAwesomeIcon)`
+    align-self: flex-start;
+    font-size: 45px;
+    margin-left: 20px;
+    margin-top: 5px;
+    color: #1DB954;
+    cursor: pointer;
+
+    :hover{
+        opacity: 0.7;
+    }
+`
+
 export const WrapperHeader = styled.div`
     display: flex;
     /* padding: 0 20px; */
@@ -24,6 +39,22 @@ export const TitleItemHeader = styled.div`
     flex-grow: 1;
     font-size: 16px;
     padding: 0 20px;
+` 
+export const AlbumItemHeader = styled.div`
+    flex-grow: 1;
+    flex-basis: 0;
+    font-size: 16px;
+    padding: 0 20px;
+` 
+export const AddedAtItemHeader = styled.div`
+    flex-grow: 1;
+    flex-basis: 0;
+    font-size: 16px;
+    padding: 0 20px;
+
+    @media only screen and (max-width: 650px){
+        display: none;
+    }
 ` 
 export const TimeItemHeader = styled.div`
     text-align: center;

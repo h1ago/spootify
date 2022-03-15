@@ -1,21 +1,21 @@
-import { faVolumeDown, faVolumeOff } from "@fortawesome/free-solid-svg-icons"
+import { faVolumeUp, faVolumeDown, faVolumeMute } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext, useRef } from "react"
-import { TokenContext } from "../../../context/TokenContext"
-import { setVolume } from "../../../services/api"
+import { useRef, useState } from "react"
+import { changeVolume } from "../../../services/api"
 import * as S from "./styles"
 
+interface PropsVolumeButton {
+    token: string
+}
 
-export default function Volume(){
-    const {token} = useContext(TokenContext)
+export default function VolumeButon({token}: PropsVolumeButton){
     const wrapperRef = useRef<HTMLDivElement>(null)
-    const volume = useRef<number>(0)
+    const [volume, setVolume] = useState<number>(50)
 
     async function handleMouseUp(){
-        console.log('handleMouseUp')
         if(wrapperRef.current){
             wrapperRef.current.style.display = 'none'
-            await setVolume(token.acessToken, volume.current*100)
+            await changeVolume(token, volume*100)
         }      
     }
 
@@ -25,7 +25,7 @@ export default function Volume(){
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
-        volume.current = Number(e.target.value)
+        setVolume(Number(e.target.value))
     }
     
     function handleMouseLeave(){
@@ -40,7 +40,8 @@ export default function Volume(){
             </S.Wrapper>
             <FontAwesomeIcon 
                 onClick={handleClick} 
-                icon={volume.current > 0 ? faVolumeDown : faVolumeOff }
+                icon={volume > 0.8 ? faVolumeUp : (volume > 0 ? faVolumeDown : faVolumeMute) }
+                color="#39383D"
             />
         </S.Container>
     )

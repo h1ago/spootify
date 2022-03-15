@@ -13,6 +13,10 @@ export const Container = styled.div`
         color: ${props => props.theme.primary}
     }
 
+    @media only screen and (max-width: 650px) {
+        justify-content: center;
+    }
+
 `
 export const Title = styled.h1`
     margin-left: 5px;
@@ -20,4 +24,8 @@ export const Title = styled.h1`
     font-size: 3em;
     color: ${props => props.theme.primary};
     font-weight: 600;
+
+    @media only screen and (max-width: 650px) {
+        margin-right: 0px;
+    }
 `

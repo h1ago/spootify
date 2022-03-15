@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 export const Container = styled.div`
     grid-area: sidebar;
     background: ${props => props.theme.primary};
     transition: all 0.2s ease-in-out;
-    will-change: width, min-width;
 `
 
 export const BoxProfile = styled.div`
@@ -22,6 +21,11 @@ export const Avatar = styled.img`
     height: 80px;
     object-fit: cover;
     border-radius: 100%;
+
+    @media only screen and (max-width: 650px) {
+        width: 60px;
+        height: 60px;
+    }
 `
 
 export const Name = styled.p`
@@ -29,6 +33,10 @@ export const Name = styled.p`
     font-size: 1.3em;
     color: #fff;
     font-weight: 500;
+
+    @media only screen and (max-width: 650px) {
+        display: none;
+    }
 `
 
 export const Nav = styled.nav`
@@ -37,7 +45,7 @@ export const Nav = styled.nav`
     align-items: center;
     height: 70vh;
 `
-export const Item = styled(Link)`
+export const Item = styled(NavLink)`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,5 +66,17 @@ export const Item = styled(Link)`
         opacity: 0.7;
         
     }
+
+    &[class*="active"]{
+        background: linear-gradient(to right, #fff, transparent 95%);
+        opacity: 0.9;
+    }
+
+    span{
+        @media only screen and (max-width: 650px) {
+            display: none;
+        }
+    }
+
 
 `

@@ -1,10 +1,11 @@
 import {useState, useEffect, useContext} from "react"
 import * as S from'./styles'
-import * as api from '../../services/api'
 import {useParams} from 'react-router-dom';
 import Loading from "../../components/Loading"
 import { TokenContext } from "../../context/TokenContext"
-import InfoAlbum from "../../components/InfoAlbum";
+import { getAlbum } from "../../services/api";
+import InfoHeader from "../../components/InfoHeader";
+import TrackList from "../../components/TrackList";
 
 export default function Album(){
     const {token} = useContext(TokenContext)
@@ -14,8 +15,7 @@ export default function Album(){
     useEffect(() => {
             if(!id) return 
             (async ()=> {
-                const album = await api.getAlbum(token.acessToken, id)
-                console.log(album)
+                const album = await getAlbum(token.acessToken, id)
                 setAlbum(album)
             })()
             
@@ -27,7 +27,23 @@ export default function Album(){
 
     return (
         <S.Container>
-            <InfoAlbum token={token.acessToken} album={album} />
+            <InfoHeader
+                image={album.images[1].url}
+                type={album.album_type}
+                title={album.name}
+                artists={album.artists}
+                num={album.release_date.slice(0, 4)}
+                numberSongs={album.total_tracks}
+                tracks={album.tracks.items}
+            />
+
+            <TrackList 
+                token={token.acessToken}
+                tracks={album.tracks.items}
+                contextUri={album.uri}
+                hasColumnAlbum={false}
+            />
+
         </S.Container>
     )
 }

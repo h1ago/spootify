@@ -23,8 +23,7 @@ export default function useAuth(code: string){
                 setToken(token)
 
             } catch (error) {
-                /* window.location.href = "/" */
-                console.log(error);
+                window.location.href = "/"
             }   
             
         })()
@@ -47,7 +46,6 @@ export default function useAuth(code: string){
                 setToken(newToken)
 
             } catch (error) {
-                console.log(error);
                 window.location.href = "/"
             }
         }
