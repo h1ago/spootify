@@ -23,7 +23,7 @@ export default function TrackItem(props: PropsTrackItem){
                 <S.TrackName>{props.trackName}</S.TrackName>
                 <S.ArtistName>
                     {
-                        props.artists.map( (artist: any) => (artist.name) )
+                        props.artists.map( (artist: any, index: number) => (index == 0 ? artist.name : `, ${artist.name}`) )
                     }
                 </S.ArtistName>
             </S.TitleItem>
