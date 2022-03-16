@@ -1,6 +1,4 @@
 import * as S from'./styles'
-import { useContext } from 'react'
-import { DeviceIdContext } from '../../../context/DeviceIdContext'
 import { startPlayback } from '../../../services/api'
 
 interface PropsTrackItem {

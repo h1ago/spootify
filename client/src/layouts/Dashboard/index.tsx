@@ -1,11 +1,10 @@
-import {useContext, useState} from "react"
+import {useContext} from "react"
 import * as S from'./styles'
 import Routes from '../../routes'
 import Sidebar from "../../components/Sidebar"
 import Header from "../../components/Header"
 import Player from "../../components/Player"
 import useAuth from "../../services/useAuth"
-import { TrackContext } from "../../context/TrackContext"
 import Loading from "../../components/Loading"
 import { TokenContext } from "../../context/TokenContext"
 

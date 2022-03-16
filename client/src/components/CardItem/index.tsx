@@ -1,4 +1,3 @@
-import React, { useContext } from "react"
 import * as S from'./styles'
 import { startPlayback } from "../../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,8 +13,6 @@ interface PropsCardItem {
     type: string,
     title: string,
     artists?: [any]
-
-
 }
 
 export default function CardItem(props: PropsCardItem){

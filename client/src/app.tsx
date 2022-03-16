@@ -1,4 +1,3 @@
-import React from "react"
 import GlobalContext from "./context"
 import Dashboard from './layouts/Dashboard'
 import Login from "./layouts/Login"

@@ -1,7 +1,4 @@
-import React, { useContext } from "react"
 import * as S from'./styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import BlockReleases from "./BlockReleases";
 import BlockCategories from "./BlockCategories";
 import BlockFeatured from "./BlockFeatured";

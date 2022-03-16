@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Album from './pages/Album'
 import Discover from './pages/Discover'

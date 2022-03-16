@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: 98vh;
+    height: 97vh;
     margin: 10px;
     overflow: hidden;
     border-radius: 20px;

@@ -2,7 +2,6 @@ import React from 'react'
 import DeviceIdContextProvider from './DeviceIdContext'
 import PlaybackContextProvider from './PlaybackContext'
 import TokenContextProvider from './TokenContext'
-import TrackContextProvider from './TrackContext'
 
 
 const GlobalContext = ({children}: React.PropsWithChildren<any>) => {
@@ -10,11 +9,9 @@ const GlobalContext = ({children}: React.PropsWithChildren<any>) => {
     return (
         <TokenContextProvider>
             <DeviceIdContextProvider>
-                <TrackContextProvider>
-                    <PlaybackContextProvider>
-                        {children}
-                    </PlaybackContextProvider>
-                </TrackContextProvider>
+                <PlaybackContextProvider>
+                    {children}
+                </PlaybackContextProvider>
             </DeviceIdContextProvider>
         </TokenContextProvider>
     )

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import * as S from'./styles'
 
 
@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
     faHeadphonesAlt,
     faHeart,
-    faPlayCircle,
     faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { TokenContext } from "../../context/TokenContext";
