@@ -2,7 +2,9 @@
 - Link: https://spootify-client.netlify.app/
 
 ## Descrição
-Busquei não utilizar o [react-spotify-web-playback](https://github.com/gilbarbara/react-spotify-web-playback) para poder ter uma compreensão mais aprofundada do React, bem como praticar o máximo que eu pudesse o css.
+Meu objetivo com este projeto foi praticar chamadas de APIs, o tratamento de respostas e o controle de estados do React. Como este projeto não tinha como foco fazer otimas decisões de UI/UX design, mesclei o design das tracklist do spotify com o protótipo do desafio do [alexcurr](https://github.com/alexgurr/react-coding-challenges/tree/master/spootify).
+
+Para poder ter uma compreensão melhor do React, bem como para praticar bastante o css e ter maior controle do design, não utilizei a biblioteca [react-spotify-web-playback](https://github.com/gilbarbara/react-spotify-web-playback), o qual abstrai o uso do Spotify Web Playback SDK e facilita o desenvolvimento. 
 
 
 ## Tecnologias Utilizadas
