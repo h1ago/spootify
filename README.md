@@ -2,7 +2,7 @@
 - Link: https://spootify-client.netlify.app/
 
 ## Descrição
-Meu objetivo com este projeto foi estudar o controle de estados do React na performance de uma plaicação, como os hooks useCallback, useMemo e useRef, bem como praticar chamadas de APIs e o tratamento de respostas. Como este projeto não tinha como foco fazer otimas decisões de UI/UX design, mesclei o design das tracklist do spotify com o protótipo do desafio do [alexcurr](https://github.com/alexgurr/react-coding-challenges/tree/master/spootify).
+Meu objetivo com este projeto foi estudar o controle de estados do React, bem como praticar chamadas de APIs e o tratamento de respostas. Como este projeto não tinha como foco fazer otimas decisões de UI/UX design, mesclei o design das tracklist do spotify com o protótipo do desafio do [alexcurr](https://github.com/alexgurr/react-coding-challenges/tree/master/spootify).
 
 Para poder ter uma compreensão melhor do React, além de praticar a estilização e ter maior controle do design da aplicação, não utilizei a biblioteca [react-spotify-web-playback](https://github.com/gilbarbara/react-spotify-web-playback), o qual abstrai o uso do Spotify Web Playback SDK e consequentemente facilitaria o desenvolvimento diminuindo os desafios. 
 
